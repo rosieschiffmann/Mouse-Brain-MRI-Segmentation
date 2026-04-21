@@ -1,0 +1,11 @@
+{
+    "folder_with_segs_from_prev_stage": null,
+    "list_of_lists_or_source_folder": "C:\\Users\\MBCX7BD2\\mastersproject\\test_images\\fast_scan_0.75noise_0.25kspace",
+    "num_parts": 1,
+    "num_processes_preprocessing": 3,
+    "num_processes_segmentation_export": 3,
+    "output_folder_or_list_of_truncated_output_files": "C:\\Users\\MBCX7BD2\\mastersproject\\inferences\\fast_scan_0.75noise_0.25kspace\\2d",
+    "overwrite": true,
+    "part_id": 0,
+    "save_probabilities": false
+}
