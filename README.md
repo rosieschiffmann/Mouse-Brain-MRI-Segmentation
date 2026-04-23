@@ -22,12 +22,16 @@ The trained model expects voxel spacing to be scaled by a factor of 10 to ensure
 
 - Place your raw .nii.gz files in an input folder.  
 
-- Run the fix_headers.py script located in nnunet/scripts/.  
+- Go to fix_headers.py, located in nnunet/scripts/ and update your input and output folders accordingly:  
 
    `input_folder = r"INITIAL_NIFTI_FOLDER"`  
 
    `output_folder = r"SCALED_NIFTI_FOLDER"`  
 
+- Run the fix_headers.py script  
+
+   `python nnunet/scripts/fix_headers.py`  
+   
 - Result: This creates a new folder of images with corrected metadata. Use these scaled images for the next steps.
 
 
@@ -53,5 +57,5 @@ Open nnunet/scripts/track_inference.py and update the following variables within
 - Ensure your conda environment is active and run the script:  
 
    `conda activate nnunet`  
-   
+
    `python nnunet/scripts/track_inference.py`
