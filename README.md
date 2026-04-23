@@ -73,6 +73,7 @@ If you have acquired new labelled mouse brains and wish to improve the model's a
 - Naming Convention: Ensure each new training brain and corresponding label map follows the naming convention, and move these images into the required nnU-Net folder structure.
    * Training Images: MouseIDName_0000.nii.gz
    * Training Labels: MouseIDName.nii.gz
+   * Label Intensities: The voxel values and regions in your label maps must match the indices defined in dataset.json
    * Placement: Move these into nnunet/nnUNet_raw/Dataset001_MouseBrain/imagesTr and labelsTr respectively. 
 
 - Data Pooling: Add the original training data used to the same folders. These can be found on the lab PC, in the imagesTr and labelsTr folders, or on Zenodo (tbc). Using a combined dataset (containing both original and new trainign data) prevents catastrophic forgetting during the fine-tuning process.
