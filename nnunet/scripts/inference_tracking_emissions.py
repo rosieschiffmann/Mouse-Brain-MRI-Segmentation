@@ -1,5 +1,14 @@
 from codecarbon import EmissionsTracker
 import subprocess
+import os
+
+# Get the directory where the current script is located
+base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Automatically set environment variables relative to the script location
+os.environ['nnUNet_raw'] = os.path.join(base_path, 'nnUNet_raw')
+os.environ['nnUNet_preprocessed'] = os.path.join(base_path, 'nnUNet_preprocessed')
+os.environ['nnUNet_results'] = os.path.join(base_path, 'nnUNet_results')
 
 # Initialize the tracker 
 tracker = EmissionsTracker(
