@@ -69,11 +69,15 @@ If you have acquired new labelled mouse brains and wish to improve the model's a
 
 ### 1. Prepare New Data  
 
-- 10x Header Scaling: Every new .nii.gz scan must be processed with fix_headers.py (located in nnunet/scripts/) to ensure the voxel spacing matches the model's expected $10\times$ scale.  
-- Naming Convention: 
+- 10x Header Scaling: Every new .nii.gz scan must be processed with fix_headers.py (located in nnunet/scripts/) to ensure the voxel spacing matches the model's expected 10x scale.  
+- Naming Convention: Ensure each new training brain and corresponding label map follows the naming convention, and move these images into the required nnU-Net folder structure.
    * Training Images: MouseIDName_0000.nii.gz
    * Training Labels: MouseIDName.nii.gz
-   * Placement: Move these into nnunet/nnUNet_raw/Dataset001_MouseBrain/imagesTr and labelsTr respectively.  
+   * Placement: Move these into nnunet/nnUNet_raw/Dataset001_MouseBrain/imagesTr and labelsTr respectively. 
+
+- Data Pooling: Add the original training data used to the same folders. These can be found on the lab PC, in the imagesTr and labelsTr folders, or on Zenodo (tbc). Using a combined dataset (containing both original and new trainign data) prevents catastrophic forgetting during the fine-tuning process.
+
+- Metadata: Update the new dataset.json in the nnUNet_raw folder, changing the `"numTraining":` item to reflect the new total number of images in the imagesTr folder. 
 
 ### 2. Update Environment Variables  
 
