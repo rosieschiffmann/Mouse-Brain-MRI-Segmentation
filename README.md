@@ -62,3 +62,54 @@ Open nnunet/scripts/track_inference.py and update the following variables within
 
 
 - **Note:** There is an additional script for running inferences with emission tracking via CodeCarbon (nnunet/scripts/inference_tracking_emissions.py). Follow the same steps to run this code, remembering to update the emission log output folder.
+
+
+## Retraining the Model (Adding New Data)
+If you have acquired new labelled mouse brains and wish to improve the model's accuracy, follow this pipeline to retrain and update the network.
+
+### 1. Prepare New Data  
+
+- 10x Header Scaling: Every new .nii.gz scan must be processed with fix_headers.py (located in nnunet/scripts/) to ensure the voxel spacing matches the model's expected $10\times$ scale.  
+- Naming Convention: 
+   * Training Images: MouseIDName_0000.nii.gz
+   * Training Labels: MouseIDName.nii.gz
+   * Placement: Move these into nnunet/nnUNet_raw/Dataset001_MouseBrain/imagesTr and labelsTr respectively.  
+
+### 2. Update Environment Variables  
+
+Before running the commands, ensure your terminal knows where the modular folders are. Run these in your PowerShell session:  
+
+
+   `$env:nnUNet_raw="C:\path\to\repo\nnunet\nnUNet_raw"`  
+
+   `$env:nnUNet_preprocessed="C:\path\to\repo\nnunet\nnUNet_preprocessed"`  
+
+   `$env:nnUNet_results="C:\path\to\repo\nnunet\nnUNet_results"`  
+
+### 3. Pre-processing & Fingerprinting
+Prior to training, nnU-Net must analyse the new data distribution. Run:
+
+   `nnUNetv2_plan_and_preprocess -d 1 -c 2d`  
+
+- d 1: Dataset ID.
+
+- c 2d: Configuration (use 3d_fullres if retraining the 3D model).
+
+### 4. The Fine-Tuning Command  
+
+To "add" to the current model knowledge, use the -pretrained_weights flag. This tells nnU-Net to load your existing checkpoint_best.pth as the starting point.
+
+
+`nnUNetv2_train 1 2d 0 -pretrained_weights "C:\path\to\repo\nnunet\nnUNet_results\Dataset001_MouseBrain\nnUNetTrainer__nnUNetPlans__2d\fold_0\checkpoint_best.pth"`
+
+
+   - d 1: Dataset ID.
+
+   - c 2d: Configuration (use 3d_fullres if retraining the 3D model).
+
+   - f 0: Fold 0.
+
+   - pretrained_weights: Path to the current "best" model weights.  
+
+Results: the new updated model weights will overwrite the original checkpoint_best.pth file.
+- **Note:** to avoid overwriting, rename the original checkpoint_best.pth file to checkpoint_best_v1.pth, and adjust the pretrained weights path accordingly. 
