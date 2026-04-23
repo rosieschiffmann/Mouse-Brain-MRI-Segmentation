@@ -1,0 +1,24 @@
+{ 
+ "channel_names": { 
+   "0": "T2"
+ }, 
+"labels": {
+   "background": 0,
+   "fourth_ventricle": 1,
+   "hippocampus_left": 2,
+   "hippocampus_right": 3,
+   "parieto_temporal_left": 4,
+   "parieto_temporal_right": 5,
+   "corpus_callosum_left": 6,
+   "corpus_callosum_right": 7,
+   "frontal_lobe_left": 8,
+   "frontal_lobe_right": 9,
+   "striatum_left": 10,
+   "striatum_right": 11,
+   "third_ventricle": 12,
+   "ventricle_left": 13,
+   "ventricle_right": 14
+}, 
+ "numTraining": 70, 
+ "file_ending": ".nii.gz"
+ }
