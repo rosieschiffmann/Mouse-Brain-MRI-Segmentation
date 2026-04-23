@@ -31,7 +31,7 @@ The trained model expects voxel spacing to be scaled by a factor of 10 to ensure
 - Run the fix_headers.py script  
 
    `python nnunet/scripts/fix_headers.py`  
-   
+
 - Result: This creates a new folder of images with corrected metadata. Use these scaled images for the next steps.
 
 
@@ -58,4 +58,7 @@ Open nnunet/scripts/track_inference.py and update the following variables within
 
    `conda activate nnunet`  
 
-   `python nnunet/scripts/track_inference.py`
+   `python nnunet/scripts/inference.py`
+
+
+- **Note:** There is an additional script for running inferences with emission tracking via CodeCarbon (nnunet/scripts/inference_tracking_emissions.py). Follow the same steps to run this code, remembering to update the emission log output folder.
