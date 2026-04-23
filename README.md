@@ -1,5 +1,10 @@
 # Mouse-Brain-MRI-Segmentation
-My 4th year MPhys Physics Masters project at the University of Manchester
+This repository contains code and documentation for my 4th year MPhys Physics Masters project at the University of Manchester. I have completed the following steps to arrive at a fully functional CNN for inferring mouse bran segmentations:
+1. Generate a population-representitive atlas, with labels.
+2. Perform atlas based image registration using Advanced Normalisation Tools (ANTs).
+3. Use registered labels to train nnU-Net CNN architecture.
+
+The results of fold 0 training in the 2d configuration are stored in this repository. However, the full 5 folds for 2d and 3d can be accessed via Zenodo. 
 
 
 ## Setup Instructions
@@ -76,7 +81,9 @@ If you have acquired new labelled mouse brains and wish to improve the model's a
    * Label Intensities: The voxel values and regions in your label maps must match the indices defined in dataset.json
    * Placement: Move these into nnunet/nnUNet_raw/Dataset001_MouseBrain/imagesTr and labelsTr respectively. 
 
-- Data Pooling: Add the original training data used to the same folders. These can be found on the lab PC, in the imagesTr and labelsTr folders, or on Zenodo (tbc). Using a combined dataset (containing both original and new trainign data) prevents catastrophic forgetting during the fine-tuning process.
+- Data Pooling: Add the original training data used to the same folders. These can be found on the lab PC, in the imagesTr and labelsTr folders, or on Zenodo. Using a combined dataset (containing both original and new trainign data) prevents catastrophic forgetting during the fine-tuning process.
+   - original training images: [zenodo.19708196](https://doi.org/10.5281/zenodo.19708196)
+   - Original training labels: [zenodo.19708248](https://doi.org/10.5281/zenodo.19708248)
 
 - Metadata: Update the new dataset.json in the nnUNet_raw folder, changing the `"numTraining":` item to reflect the new total number of images in the imagesTr folder. 
 
