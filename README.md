@@ -4,7 +4,9 @@ This repository contains code and documentation for my 4th year MPhys Physics Ma
 2. Perform atlas based image registration using Advanced Normalisation Tools (ANTs).
 3. Use registered labels to train nnU-Net CNN architecture.
 
-The results of fold 0 training in the 2d configuration are stored in this repository. However, the full 5 folds for 2d and 3d can be accessed via Zenodo. 
+The results of fold 0 training in the 2d configuration are stored in this repository. However, the full 5 folds for 2d and 3d can be accessed via Zenodo:
+   - 2d model results: [zenodo.19709402](https://doi.org/10.5281/zenodo.19709402)
+   - 3d_fullres model results: [zenodo.19709506](https://doi.org/10.5281/zenodo.19709506)
 
 
 ## Setup Instructions
