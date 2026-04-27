@@ -1,34 +1,50 @@
 #!/bin/bash
 
-# Folder with the subject images
-SUBJECT_DIR="./data/subjects"
-# The folder where the transforms are saved from the atlas generation step
-ATLAS_DIR="./results/atlas"
-# Your manually defined labels on the template
-TEMPLATE_LABELS="./data/template_labels/TemplateLabels.nii.gz"
-# Where to save the subject-space labels
-FINAL_OUTPUT="./results/subject_labels"
+# Path to the template - the "Moving" image
+MOVING_TEMPLATE="/home/input/template_template0.nii"
+# The atlas labels drawn on that template
+TEMPLATE_LABELS="/home/input/final_labels.nii.gz"
+# The directory containing the subject images (Fixed targets)
+INPUT_DIR="/home/input/test_images"
+# Where to save registrations and warped labels
+BASE_OUTPUT="/home/output"
 
-mkdir -p "$FINAL_OUTPUT"
+# Define specific folders for organization
+REG_DIR="${BASE_OUTPUT}/registrations"
+LABEL_DIR="${BASE_OUTPUT}/labels"
 
-echo "Warping Template Labels to Subject Space..."
+# Create those folders automatically
+mkdir -p "$REG_DIR"
+mkdir -p "$LABEL_DIR"
 
-for img in "${SUBJECT_DIR}"/*.nii; do
-    sub=$(basename "$img" .nii)
+# Registration of template onto subject's space
+for FIXED_SUBJECT in "$INPUT_DIR"/*.nii.gz; do
     
-    echo "Processing Inverse Transforms for: $sub"
+    BASE_NAME=$(basename "$FIXED_SUBJECT")
+    FILE_ID=${BASE_NAME%.nii*} 
 
-    # ANTs applies transforms in REVERSE order listed:
-    # 1. Inverse Warp first (non-linear)
-    # 2. Inverted Affine second (linear)
+    echo "----------------------------------------------------"
+    echo "Processing Subject ID: $FILE_ID"
+    echo "----------------------------------------------------"
+
+    # Outputs saved to the 'registrations' folder
+    antsRegistrationSyN.sh \
+        -d 3 \
+        -f "$FIXED_SUBJECT" \
+        -m "$MOVING_TEMPLATE" \
+        -o "${REG_DIR}/${FILE_ID}_"
+
+    # Forward warping the labels by applying transforms
+    # Final masks saved to the 'labels' folder
+    echo "Warping labels for: $FILE_ID"
+    
     antsApplyTransforms \
         -d 3 \
         -i "$TEMPLATE_LABELS" \
-        -r "$img" \
-        -o "${FINAL_OUTPUT}/${sub}_labels_native.nii.gz" \
+        -r "$FIXED_SUBJECT" \
+        -o "${LABEL_DIR}/${FILE_ID}_labels.nii.gz" \
         -n GenericLabel \
-        -t ["${ATLAS_DIR}/${sub}0GenericAffine.mat", 1] \
-        -t "${ATLAS_DIR}/${sub}1InverseWarp.nii.gz"
-done
+        -t "${REG_DIR}/${FILE_ID}_1Warp.nii.gz" \
+        -t "${REG_DIR}/${FILE_ID}_0GenericAffine.mat"
 
-echo "Label propagation complete. Results saved to $FINAL_OUTPUT"
+done
