@@ -4,6 +4,50 @@ This repository contains code and documentation for my 4th year MPhys Physics Ma
 2. Perform atlas based image registration using Advanced Normalisation Tools (ANTs).
 3. Use registered labels to train nnU-Net CNN architecture.
 
+# Skull-Stripping (SAMson)
+
+# Atlas Generation
+- Place your skull-stripped files into an input folder.
+   **Note** : The first file serves as the initial fixed target for all other input images.
+
+- Open the atlas_generation.sh bash script and edit the following variables:
+   - Input directory (INPUT_DIR): Point this to the folder containing the skull-stripped data
+   - Output directory (OUTPUT_DIR): Create a new folder where the outputs, including the atlas, will be stored
+   - Iteration number (-i): Number of iterations for template construction , default is 4.
+
+- Then  execute the provided bash script: 
+`bash atlas_generation.sh`
+
+This process performs symmetric groupwise registration of the images to the atlas.
+
+**Key Outputs:**
+- intermediateTemplates : Folder with the intermediate templates from each iteration
+- movingToFixed_1Warp.nii.gz : The non-linear deformation field (Subject ➔ Template).
+- movingToFixed_1InverseWarp.nii.gz : The inverse non-linear field (Template ➔ Subject).
+- movingToFixed_0GenericAffine.mat : The linear affine transformation matrix.
+
+The final atlas is saved as: *template_template0.nii.gz*
+
+[!IMPORTANT] 
+Manual labels or ROIs should be defined for the atlas before proceeding to the registration step
+
+# ANTs Registration
+This step aligns the generated atlas onto individual test subjects to propagate the labels into the subject's space.
+- Open the script ants_registration.sh and edit these variables: 
+   - MOVING_TEMPLATE: Path to the atlas created in the previous step.
+   - TEMPLATE_LABELS: Path to the manual label file you created on the atlas.
+   - INPUT_DIR: Folder containing the subject images you wish to segment.
+   - BASE_OUTPUT: The directory where the results will be stored.
+
+- Execute the script:
+`bash ants_registration.sh`
+
+**Outputs**
+
+- /registrations/: Contains the specific deformation maps for every subject.
+
+- /labels/: Contains the final segmentation labels warped to the subject's native anatomy.
+
 # Machine Learning Based Segmentation
 
 In order to perform ML based segmentation in this project, nnU-Net architecture was utilised. Below, both inference and retraining processes are explained 
