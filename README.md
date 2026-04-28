@@ -18,9 +18,12 @@ To recreate the environment used for this project:
 ## Skull-Stripping (SAMson)
 In order to skull-strip brains (removing non-brain tissue), the SAMson pipeline was followed.  
 
-1. Clone SAMson repository (https://github.com/CanalsLab/SAMson.git)
-   `git clone https://github.com/CanalsLab/SAMson.git`
-   `cd SAMson`  
+1. Clone SAMson repository (https://github.com/CanalsLab/SAMson.git)  
+
+   `git clone https://github.com/CanalsLab/SAMson.git`  
+
+   `cd SAMson`    
+
 
 2. Download the Required Checkpoints & Templates
 SAMson requires two massive files that are not included in the GitHub repository by default. Download these and place them directly into your main SAMson project folder:  
@@ -29,15 +32,20 @@ SAMson requires two massive files that are not included in the GitHub repository
 
 - Mouse-X Template: Download the reference atlas used for bounding box generation ([anat_template_FP.nii](https://doi.org/10.20350/digitalCSIC/17000)).  
 
-3. Activate the Environment and Install Dependencies
-   `conda create -n samson python=3.10 -y`
-   `conda activate samson`
-   `pip install -r requirements.txt`
+3. Activate the Environment and Install Dependencies  
+#
+   `conda create -n samson python=3.10 -y`  
+
+   `conda activate samson`  
+
+   `pip install -r requirements.txt`  
+
 
 4. Execute the Jupyter Notebook
 Open SAMson.ipynb and change the filenames in cell 1 to match your folder of brain images. Run the first 3 cells.   
 
-To save resulting skullstripped brains to the output path, add the following line to the end of the full_auto cell:
+To save resulting skullstripped brains to the output path, add the following line to the end of the full_auto cell:  
+
    `create_sam_masks_nifti(file, sam_mask_list)`  
 
 Run full_auto cell to begin skullstripping. Binary masks will be saved to the specified output path
