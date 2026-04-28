@@ -4,6 +4,7 @@ This repository contains code and documentation for my 4th year MPhys Physics Ma
 2. Perform atlas based image registration using Advanced Normalisation Tools (ANTs).
 3. Use registered labels to train nnU-Net CNN architecture.
 
+
 ## Setup Instructions
 To recreate the environment used for this project:
 
@@ -14,6 +15,8 @@ To recreate the environment used for this project:
 3. Activate it:
    `conda activate segmentation`
 
+# ANTs Registration Pipeline
+In order to perform atlas based image registration via ANTs, an atlas was first generated. This section includes informatin on how to preprocess (skull-strip) brain volumes, generate a population-representative atlas and use this for atlas-based image registration.
 
 ## Skull-Stripping (SAMson)
 In order to skull-strip brains (removing non-brain tissue), the SAMson pipeline was followed.  
@@ -60,8 +63,6 @@ Define the `input_folder` and `output_folder` in `flip_masks.py` and run this sc
 #### 6. Apply the Binary Masks to the Full Brains
 
 Update the `brains_folder`, `masks_folder` and `output_folder` in `apply_masks.py`. Run this script. The resulting skullstripped brain images will be saved. These can be used directly in ANTs registration. 
-
-
 
 
 ## Atlas Generation
