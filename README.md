@@ -128,7 +128,11 @@ This step aligns the generated atlas onto individual test subjects to propagate 
 
 - /registrations/: Contains the specific deformation maps for every subject.
 
-- /labels/: Contains the final segmentation labels warped to the subject's native anatomy.
+- /labels/: Contains the final segmentation labels warped to the subject's native anatomy.  
+
+These warped label maps and their corresponding brain images were used for training data for the ML model. The resulting training cohort used in this project can be found at:
+   - Training images: [zenodo.19708196](https://doi.org/10.5281/zenodo.19708196)
+   - Training labels: [zenodo.19708248](https://doi.org/10.5281/zenodo.19708248)
 
 # Machine Learning Based Segmentation
 
@@ -206,7 +210,7 @@ If you have acquired new labelled mouse brains and wish to improve the model's a
    * Placement: Move these into nnunet/nnUNet_raw/Dataset001_MouseBrain/imagesTr and labelsTr respectively. 
 
 - Data Pooling: Add the original training data used to the same folders. These can be found on the lab PC, in the imagesTr and labelsTr folders, or on Zenodo. Using a combined dataset (containing both original and new trainign data) prevents catastrophic forgetting during the fine-tuning process.
-   - original training images: [zenodo.19708196](https://doi.org/10.5281/zenodo.19708196)
+   - Original training images: [zenodo.19708196](https://doi.org/10.5281/zenodo.19708196)
    - Original training labels: [zenodo.19708248](https://doi.org/10.5281/zenodo.19708248)
 
 - Metadata: Update the new dataset.json in the nnUNet_raw folder, changing the `"numTraining":` item to reflect the new total number of images in the imagesTr folder. 
