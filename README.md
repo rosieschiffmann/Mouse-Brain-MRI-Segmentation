@@ -40,13 +40,25 @@ This process performs symmetric groupwise registration of the images to the atla
 The final atlas is saved as: *template_template0.nii.gz*
 
 [!IMPORTANT] 
-After generating the atlas, the anatomical regions must be manually segmented to create ground truth labels. It is recommended to use MRview (part of mrtrix3 suite) for this manual segmentation. When labelling the regions of interest, ensure each individual structure is assigned a specific integer (intensity value) corresponding to it. For example:
+After generating the atlas, the anatomical regions must be manually segmented to create ground truth labels. It is recommended to use MRview (part of mrtrix3 suite) for this manual segmentation. When labelling the regions of interest, ensure each individual structure is assigned a specific integer (intensity value) corresponding to it. For example, throughout this project we used:
+
 | Intensity value     | Structure     | File Name     |
 | ---      | ---       | ---       |
-| Background     | 0       | N/A       |
+| Background     | 0       | Background       |
 | Fourth ventricle     | 1       | 01_fourth_ventricle.nii.gz       |
 | Hippocampus left     | 2       | 02_hippocampus_left.nii.gz       |
 | Hippocampus right     | 3       | 03_hippocampus_right.nii.gz       |
+| Parieto-temporal left     | 4       | 04_parieto_temporal_left.nii.gz       |
+| Parieto-temporal right     | 5       | 05_parieto_temporal_right.nii.gz       |
+| Corpus callosum left     | 6       | 06_corpus_callosum_left.nii.gz       |
+| Corpus callosum right     | 7       | 07_corpus_callosum_right.nii.gz       |
+| Frontal lobe left     | 8       | 08_frontal_lobe_left.nii.gz       |
+| Frontal lobe right     | 9       | 09_frontal_lobe_right.nii.gz       |
+| Striatum left     | 10       | 10_striatum_left.nii.gz       |
+| Striatum right     | 11       | 11_striatum_right.nii.gz       |
+| Third ventricle     | 12       | 12_third_ventricle.nii.gz       |
+| Ventricle left     | 13       | 13_ventricle_left.nii.gz       |
+| Ventricle right     | 14       | 14_ventricle_right.nii.gz       |
 
 
 Combine all the separate binary masks into a single multi-label file. 
