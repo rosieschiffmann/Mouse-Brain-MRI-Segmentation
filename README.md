@@ -4,16 +4,27 @@ This repository contains code and documentation for my 4th year MPhys Physics Ma
 2. Perform atlas based image registration using Advanced Normalisation Tools (ANTs).
 3. Use registered labels to train nnU-Net CNN architecture.
 
-# Skull-Stripping (SAMson)
+## Setup Instructions
+To recreate the environment used for this project:
 
-# Atlas Generation
+1. Clone the repo:
+   `git clone https://github.com/rosieschiffmann/Mouse-Brain-MRI-Segmentation.git`
+2. Create the environment:
+   `conda env create -f environment.yml`
+3. Activate it:
+   `conda activate nnunet`
+
+
+## Skull-Stripping (SAMson)
+
+## Atlas Generation
 - Place your skull-stripped files into an input folder.
    **Note** : The first file serves as the initial fixed target for all other input images.
 
 - Open the atlas_generation.sh bash script and edit the following variables:
-   - Input directory (INPUT_DIR): Point this to the folder containing the skull-stripped data
-   - Output directory (OUTPUT_DIR): Create a new folder where the outputs, including the atlas, will be stored
-   - Iteration number (-i): Number of iterations for template construction , default is 4.
+   - Input directory (`INPUT_DIR`): Point this to the folder containing the skull-stripped data
+   - Output directory (`OUTPUT_DIR`): Create a new folder where the outputs, including the atlas, will be stored
+   - Iteration number (`-i`): Number of iterations for template construction , default is 4.
 
 - Then  execute the provided bash script: 
 `bash atlas_generation.sh`
@@ -31,16 +42,16 @@ The final atlas is saved as: *template_template0.nii.gz*
 [!IMPORTANT] 
 Manual labels or ROIs should be defined for the atlas, then combined into a single NiFti file before proceeding to the registration step.
 
-# ANTs Registration
+## ANTs Registration
 This step aligns the generated atlas onto individual test subjects to propagate the labels into the subject's space.
 - Open the script ants_registration.sh and edit these variables: 
-   - MOVING_TEMPLATE: Path to the atlas created in the previous step.
-   - TEMPLATE_LABELS: Path to the manual label file you created on the atlas.
-   - INPUT_DIR: Folder containing the subject images you wish to segment.
-   - BASE_OUTPUT: The directory where the results will be stored.
+   - `MOVING_TEMPLATE`: Path to the atlas created in the previous step.
+   - `TEMPLATE_LABELS`: Path to the manual label file you created on the atlas.
+   - `INPUT_DIR`: Folder containing the subject images you wish to segment.
+   - `BASE_OUTPUT`: The directory where the results will be stored.
 
 - Execute the script:
-`bash ants_registration.sh`
+   `bash ants_registration.sh`
 
 **Outputs**
 
@@ -58,15 +69,6 @@ The results of fold 0 training in the 2d configuration are stored in this reposi
    - 3d_fullres model results: [zenodo.19709506](https://doi.org/10.5281/zenodo.19709506)
 
 
-## Setup Instructions
-To recreate the environment used for this project:
-
-1. Clone the repo:
-   `git clone https://github.com/rosieschiffmann/Mouse-Brain-MRI-Segmentation.git`
-2. Create the environment:
-   `conda env create -f environment.yml`
-3. Activate it:
-   `conda activate nnunet`
 
 
 ## nnU-Net Inference Instructions
