@@ -29,7 +29,7 @@ This process performs symmetric groupwise registration of the images to the atla
 The final atlas is saved as: *template_template0.nii.gz*
 
 [!IMPORTANT] 
-Manual labels or ROIs should be defined for the atlas before proceeding to the registration step
+Manual labels or ROIs should be defined for the atlas, then combined into a single NiFti file before proceeding to the registration step.
 
 # ANTs Registration
 This step aligns the generated atlas onto individual test subjects to propagate the labels into the subject's space.
