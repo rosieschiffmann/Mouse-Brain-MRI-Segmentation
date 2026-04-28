@@ -48,11 +48,11 @@ To save resulting skullstripped brains to the output path, add the following lin
 
    `create_sam_masks_nifti(file, sam_mask_list)`  
 
-Run full_auto cell to begin skullstripping. Binary masks will be saved to the specified output path
+Run full_auto cell to begin skullstripping. Binary masks will be saved to the specified output path.
 
 
 #### 5. Flip the Resulting Binary Masks
-SAMson algorithm flips the brains front to back, reversing the oder of the slices. We need to reverse this effect. 
+SAMson algorithm flips the brains front to back, reversing the order of the slices. We need to reverse this effect. 
 
 
 Define the `input_folder` and `output_folder` in `flip_masks.py` and run this script.  
