@@ -16,6 +16,45 @@ To recreate the environment used for this project:
 
 
 ## Skull-Stripping (SAMson)
+In order to skull-strip brains (removing non-brain tissue), the SAMson pipeline was followed.  
+
+1. Clone SAMson repository (https://github.com/CanalsLab/SAMson.git)
+   `git clone https://github.com/CanalsLab/SAMson.git`
+   `cd SAMson`  
+
+2. Download the Required Checkpoints & Templates
+SAMson requires two massive files that are not included in the GitHub repository by default. Download these and place them directly into your main SAMson project folder:  
+
+- SAM ViT-H Checkpoint: Download the massive Vision Transformer weights ([sam_vit_h_4b8939.pth](https://github.com/facebookresearch/segment-anything?tab=readme-ov-file#model-checkpoints)).  
+
+- Mouse-X Template: Download the reference atlas used for bounding box generation ([anat_template_FP.nii](https://doi.org/10.20350/digitalCSIC/17000)).  
+
+3. Activate the Environment and Install Dependencies
+   `conda create -n samson python=3.10 -y`
+   `conda activate samson`
+   `pip install -r requirements.txt`
+
+4. Execute the Jupyter Notebook
+Open SAMson.ipynb and change the filenames in cell 1 to match your folder of brain images. Run the first 3 cells.   
+
+To save resulting skullstripped brains to the output path, add the following line to the end of the full_auto cell:
+   `create_sam_masks_nifti(file, sam_mask_list)`  
+
+Run full_auto cell to begin skullstripping. Binary masks will be saved to the specified output path
+
+
+5. Flip the Resulting Binary Masks
+SAMson algorithm flips the brains front to back, reversing the oder of the slices. We need to reverse this effect. 
+
+
+Define the `input_folder` and `output_folder` in `flip_masks.py` and run this script.  
+
+6. Apply the Binary Masks to the Full Brains
+
+Update the `brains_folder`, `masks_folder` and `output_folder` in `apply_masks.py`. Run this script. The resulting skullstripped brain images will be saved. These can be used directly in ANTs registration. 
+
+
+
 
 ## Atlas Generation
 - Place your skull-stripped files into an input folder.
