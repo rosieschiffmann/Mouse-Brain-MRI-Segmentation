@@ -12,7 +12,7 @@ To recreate the environment used for this project:
 2. Create the environment:
    `conda env create -f environment.yml`
 3. Activate it:
-   `conda activate nnunet`
+   `conda activate segmentation`
 
 
 ## Skull-Stripping (SAMson)
@@ -40,7 +40,18 @@ This process performs symmetric groupwise registration of the images to the atla
 The final atlas is saved as: *template_template0.nii.gz*
 
 [!IMPORTANT] 
-Manual labels or ROIs should be defined for the atlas, then combined into a single NiFti file before proceeding to the registration step.
+After generating the atlas, the anatomical regions must be manually segmented to create ground truth labels. It is recommended to use MRview (part of mrtrix3 suite) for this manual segmentation. When labelling the regions of interest, ensure each individual structure is assigned a specific integer (intensity value) corresponding to it. For example:
+| Intensity value     | Structure     | File Name     |
+| ---      | ---       | ---       |
+| Background     | 0       | N/A       |
+| Fourth ventricle     | 1       | 01_fourth_ventricle.nii.gz       |
+| Hippocampus left     | 2       | 02_hippocampus_left.nii.gz       |
+| Hippocampus right     | 3       | 03_hippocampus_right.nii.gz       |
+
+
+Combine all the separate binary masks into a single multi-label file. 
+Verify your unique label values after saving. In Python, you can check with this:  
+`print(np.unique(nib.load("TemplateLabels.nii.gz").get_fdata()))`
 
 ## ANTs Registration
 This step aligns the generated atlas onto individual test subjects to propagate the labels into the subject's space.
